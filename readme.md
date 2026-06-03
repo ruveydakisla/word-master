@@ -10,7 +10,7 @@ Kullanıcıların kendi kelime havuzlarını oluşturmalarına, dinamik bir matr
 
 | 1. Kelime Havuzu & Arayüz | 2. Kelime Arenası (Başlangıç) | 3. Ana Sayfa | 4. Ayarlar | 5. Başarılarım | 6. Quiz |
 | :---: | :---: | :---: | | :---: | | :---: | 
-| <img src="./screenshots/pool_screen.png" width="240" alt="Kelime Havuzu"/> | <img src="./screenshots/game_screen.png" width="240" alt="Oyun Arenası"/> | <img src="./screenshots/home_screen.png" width="240" alt="Ana Sayfa"/> | <img src="./screenshots/settings_screen.png" width="240" alt="Ayarlar"/> | <img src="./screenshots/badges_screen.png" width="240" alt="Başarılarım"/> |<img src="./screenshots/quiz_screen.png" width="240" alt="Quiz"/> |
+| <img src="./assets/screenshots/pool_screen.png" width="240" alt="Kelime Havuzu"/> | <img src="./assets/screenshots/game_screen.png" width="240" alt="Oyun Arenası"/> | <img src="./assets/screenshots/home_screen.png" width="240" alt="Ana Sayfa"/> | <img src="./assets/screenshots/settings_screen.png" width="240" alt="Ayarlar"/> | <img src="./assets/screenshots/badges_screen.png" width="240" alt="Başarılarım"/> |<img src="./assets/screenshots/quiz_screen.png" width="240" alt="Quiz"/> |
 
 ### 🎬 Canlı Uygulama Demosu
 
