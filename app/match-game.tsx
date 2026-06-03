@@ -184,7 +184,7 @@ export default function MatchGameScreen() {
     </TouchableOpacity>
 
     <View className="items-center">
-      <Text className="text-white font-black text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-fuchsia-400">
+      <Text className="text-white font-black text-xl tracking-tight bg-clip-text  bg-gradient-to-r from-cyan-400 to-fuchsia-400">
         Sonsuz Akış
       </Text>
       <Text className="text-slate-400 text-xs font-bold mt-0.5">Eşleşen Gider, Yeni Gelir</Text>
