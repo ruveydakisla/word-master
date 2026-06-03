@@ -8,9 +8,42 @@ Kullanıcıların kendi kelime havuzlarını oluşturmalarına, dinamik bir matr
 
 ## 📸 Ekran Görüntüleri & Demo
 
-| 1. Kelime Havuzu & Arayüz | 2. Kelime Arenası (Başlangıç) | 3. Ana Sayfa | 4. Ayarlar | 5. Başarılarım | 6. Quiz |
-| :---: | :---: | :---: | | :---: | | :---: | 
-| <img src="./assets/screenshots/pool_screen.png" width="240" alt="Kelime Havuzu"/> | <img src="./assets/screenshots/game_screen.png" width="240" alt="Oyun Arenası"/> | <img src="./assets/screenshots/home_screen.png" width="240" alt="Ana Sayfa"/> | <img src="./assets/screenshots/settings_screen.png" width="240" alt="Ayarlar"/> | <img src="./assets/screenshots/badges_screen.png" width="240" alt="Başarılarım"/> |<img src="./assets/screenshots/quiz_screen.png" width="240" alt="Quiz"/> |
+### 1. Kelime Havuzu & Arayüz
+
+<p align="center">
+  <img src="./assets/screenshots/pool_screen.png" width="300" alt="Kelime Havuzu"/>
+</p>
+
+### 2. Kelime Arenası (Başlangıç)
+
+<p align="center">
+  <img src="./assets/screenshots/game_screen.png" width="300" alt="Oyun Arenası"/>
+</p>
+
+### 3. Ana Sayfa
+
+<p align="center">
+  <img src="./assets/screenshots/home_screen.png" width="300" alt="Ana Sayfa"/>
+</p>
+
+### 4. Ayarlar
+
+<p align="center">
+  <img src="./assets/screenshots/settings_screen.png" width="300" alt="Ayarlar"/>
+</p>
+
+### 5. Başarılarım
+
+<p align="center">
+  <img src="./assets/screenshots/badges_screen.png" width="300" alt="Başarılarım"/>
+</p>
+
+### 6. Quiz
+
+<p align="center">
+  <img src="./assets/screenshots/quiz_screen.png" width="300" alt="Quiz"/>
+</p>
+
 
 ### 🎬 Canlı Uygulama Demosu
 
