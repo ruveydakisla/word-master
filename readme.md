@@ -1,6 +1,6 @@
-# 🎮 Kelime Arenası (Word Arena)
+# 🎮 Word Master
 
-Kelime Arenası, geleneksel sözlük mantığını modern oyunlaştırma (**gamification**) elementleriyle birleştiren, kullanıcıyı dinamik bir öğrenme sürecinde tutmak amacıyla tasarlanmış, siber punk esintili bir mobil dil öğrenme uygulamasıdır.
+Word Master, geleneksel sözlük mantığını modern oyunlaştırma (**gamification**) elementleriyle birleştiren, kullanıcıyı dinamik bir öğrenme sürecinde tutmak amacıyla tasarlanmış, siber punk esintili bir mobil dil öğrenme uygulamasıdır.
 
 Kullanıcıların kendi kelime havuzlarını oluşturmalarına, dinamik bir matris arayüzünde kelimeleri eşleştirmelerine ve bunu yaparken deneyim puanı (**XP**) kazanarak ilerlemelerini takip etmelerine olanak tanır.
 
