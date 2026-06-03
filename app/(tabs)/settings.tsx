@@ -174,8 +174,8 @@ export default function SettingsScreen() {
             activeOpacity={0.7}
             onPress={handleClearPool}
             className="flex-row items-center justify-between py-2">
-            <View className="flex-row items-center">
-              <View className="rounded-xl bg-red-100 p-2">
+            <View className=" bg-transparent flex-row items-center">
+              <View className="rounded-xl  p-2">
                 <Ionicons name="trash-outline" size={20} color="#dc2626" />
               </View>
               <View className="ml-3">
