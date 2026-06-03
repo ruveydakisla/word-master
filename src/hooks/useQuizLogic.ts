@@ -19,8 +19,9 @@ export function useQuizLogic() {
   const [score, setScore] = useState<number>(0);
   const [quizOver, setQuizOver] = useState<boolean>(false);
 
-  // 🚨 ASENKRON ZAMANLAYICILARI TUTMAK İÇİN REF
-const timerRef = useRef<any | null>(null);
+  // ASENKRON ZAMANLAYICILARI VE AKTİF SES NESNESİNİ TUTMAK İÇİN REFLER
+  const timerRef = useRef<any | null>(null);
+  const soundRef = useRef<Audio.Sound | null>(null);
   const isMounted = useRef<boolean>(true);
 
   // Bileşen hafızadan silindiğinde (unmount) tetiklenecek temizlik zırhı
@@ -28,21 +29,21 @@ const timerRef = useRef<any | null>(null);
     isMounted.current = true;
     return () => {
       isMounted.current = false;
-      if (timerRef.current) clearTimeout(timerRef.current); // Arka plandaki sayacı durdur!
+      if (timerRef.current) clearTimeout(timerRef.current);
+      if (soundRef.current) {
+        soundRef.current.unloadAsync().catch(err => console.log("Sound unload error:", err));
+      }
     };
   }, []);
 
-  // Sadece sayfa ilk açıldığında 1 kereye mahsus quizi kurar.
- useEffect(() => {
-    if (wordPool && wordPool.length >= 4) {
-      const shuffled = [...wordPool].sort(() => Math.random() - 0.5);
-      setShuffledPool(shuffled);
-      setQuestionIndex(0);
-      setScore(0);
-      setSelectedAnswer(null);
-      setQuizOver(false);
+  // Sadece sayfa ilk açıldığında veya kelime havuzu yüklendiğinde quizi kurar.
+  // 🚨 quizOver bağımlılığı sonsuz döngü yaratmaması için burası stabilize edildi.
+  useEffect(() => {
+    if (wordPool && wordPool.length >= 4 && shuffledPool.length === 0) {
+      initQuiz();
     }
-  }, [quizOver]);
+  }, [wordPool]);
+
   // Soru indeksi değiştikçe şıkları üretir
   useEffect(() => {
     if (shuffledPool.length > 0 && questionIndex < shuffledPool.length) {
@@ -50,17 +51,20 @@ const timerRef = useRef<any | null>(null);
     }
   }, [shuffledPool, questionIndex]);
 
-  // Manuel Yeniden Başlatma
-  const restartQuiz = () => {
+  const initQuiz = () => {
     if (!wordPool || wordPool.length < 4) return;
-    if (timerRef.current) clearTimeout(timerRef.current);
-    
     const shuffled = [...wordPool].sort(() => Math.random() - 0.5);
     setShuffledPool(shuffled);
     setQuestionIndex(0);
     setScore(0);
     setSelectedAnswer(null);
     setQuizOver(false);
+  };
+
+  // Manuel Yeniden Başlatma
+  const restartQuiz = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    initQuiz();
   };
 
   // Şık üretici
@@ -73,6 +77,36 @@ const timerRef = useRef<any | null>(null);
     const shuffledWrong = wrongAnswers.sort(() => Math.random() - 0.5).slice(0, 3);
     const finalOptions = [correctWord.tr, ...shuffledWrong].sort(() => Math.random() - 0.5);
     setOptions(finalOptions);
+  };
+
+  // 🎵 GÜVENLİ SES OYNATICI FONKSİYONU
+  const playFeedbackSound = async (correct: boolean) => {
+    if (!soundEnabled) return;
+
+    try {
+      // Eğer önceden kalan ve temizlenmemiş bir ses objesi varsa önce onu boşaltalım
+      if (soundRef.current) {
+        await soundRef.current.unloadAsync().catch(() => {});
+      }
+
+      const soundFile = correct 
+        ? require('../../assets/sounds/correct.mp3') 
+        : require('../../assets/sounds/wrong.mp3');
+
+      const { sound } = await Audio.Sound.createAsync(soundFile, { shouldPlay: true });
+      soundRef.current = sound;
+
+      // 🎯 Altın Kural: Ses çalmayı bitirdiğinde otomatik olarak hafızadan (RAM) temizlensin
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.isLoaded && status.didJustFinish) {
+          sound.unloadAsync().catch(err => console.log("Unload error:", err));
+          soundRef.current = null;
+        }
+      });
+
+    } catch (error) {
+      console.log("Ses oynatılamadı:", error);
+    }
   };
 
   // Cevaplama fonksiyonu
@@ -90,15 +124,8 @@ const timerRef = useRef<any | null>(null);
       setScore((prev) => prev + 1);
     }
 
-    if (soundEnabled) {
-      Audio.Sound.createAsync(
-        correct ? require('../../assets/sounds/correct.mp3') : require('../../assets/sounds/wrong.mp3')
-      ).then(({ sound }) => {
-        sound.playAsync().then(() => {
-          sound.unloadAsync();
-        });
-      }).catch(err => console.log(err));
-    }
+    // Tetikleyiciler
+    playFeedbackSound(correct);
 
     if (vibrationEnabled) {
       Haptics.notificationAsync(
@@ -106,9 +133,8 @@ const timerRef = useRef<any | null>(null);
       ).catch(err => console.log(err));
     }
 
-    // 🚨 Zamanlayıcıyı Ref'e kaydediyoruz ki sayfadan çıkılırsa iptal edebilelim
+    // Zamanlayıcıyı Ref'e kaydediyoruz ki sayfadan çıkılırsa iptal edebilelim
     timerRef.current = setTimeout(() => {
-      // Sadece bileşen hâlâ ekrandaysa state güncellemesi yap (Çökmeyi önleyen altın kural)
       if (!isMounted.current) return;
 
       if (questionIndex + 1 < shuffledPool.length) {
